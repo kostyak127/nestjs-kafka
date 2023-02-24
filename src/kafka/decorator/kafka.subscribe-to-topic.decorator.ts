@@ -1,5 +1,5 @@
 import { applyDecorators, SetMetadata } from "@nestjs/common";
-import { KAFKA_HANDLERS_METADATA } from "../kafka.contants";
+import { KAFKA_HANDLERS_METADATA } from "../kafka.constants";
 import {
   KafkaSubscribeToTopicOptions,
   SubscribableKafkaTopic,

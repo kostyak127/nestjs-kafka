@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
 import { Consumer, Kafka, KafkaMessage, Producer } from "kafkajs";
-import { KAFKA_TOPIC_HANDLERS_MAP } from "./kafka.contants";
+import { KAFKA_TOPIC_HANDLERS_MAP } from "./kafka.constants";
 import {
   KafkaHandlerType,
   KafkaHandlerValidation,

@@ -1,4 +1,4 @@
-import { KAFKA_VALIDATION_METADATA_KEY } from "../kafka.contants";
+import { KAFKA_VALIDATION_METADATA_KEY } from "../kafka.constants";
 import { Any } from "io-ts";
 
 export function IoTsValidator(schema: Any) {

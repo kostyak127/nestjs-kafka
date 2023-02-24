@@ -1,5 +1,5 @@
 import { applyDecorators, SetMetadata } from "@nestjs/common";
-import { KAFKA_SKIP_MESSAGE_METADATA } from "../kafka.contants";
+import { KAFKA_SKIP_MESSAGE_METADATA } from "../kafka.constants";
 
 export function SkipMessage(
   options: {

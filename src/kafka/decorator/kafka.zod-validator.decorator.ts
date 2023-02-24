@@ -1,4 +1,4 @@
-import { KAFKA_VALIDATION_METADATA_KEY } from "../kafka.contants";
+import { KAFKA_VALIDATION_METADATA_KEY } from "../kafka.constants";
 import { ZodTypeAny } from "zod/lib/types";
 
 export function ZodValidator(schema: ZodTypeAny) {

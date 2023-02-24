@@ -1,7 +1,7 @@
 import { KafkaTopicMetadataHandler } from "../src/kafka/kafka.topic-metadata-handler";
 import { TestingModule } from "@nestjs/testing";
 import { testKafkaModule } from "./test.kafka-module";
-import { KAFKA_TOPIC_HANDLERS_MAP } from "../src/kafka/kafka.contants";
+import { KAFKA_TOPIC_HANDLERS_MAP } from "../src/kafka/kafka.constants";
 
 describe("kafka context", () => {
   let metadataHandler: KafkaTopicMetadataHandler;

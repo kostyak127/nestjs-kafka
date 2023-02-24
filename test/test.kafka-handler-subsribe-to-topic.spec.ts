@@ -1,6 +1,6 @@
 import { TestingModule } from "@nestjs/testing";
 import { KafkaTopicMetadataHandler } from "../src/kafka/kafka.topic-metadata-handler";
-import { KAFKA_TOPIC_HANDLERS_MAP } from "../src/kafka/kafka.contants";
+import { KAFKA_TOPIC_HANDLERS_MAP } from "../src/kafka/kafka.constants";
 import { testKafkaModule } from "./test.kafka-module";
 
 describe("subscribing", () => {

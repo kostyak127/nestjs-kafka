@@ -14,7 +14,7 @@ import {
   KAFKA_SKIP_MESSAGE_METADATA,
   KAFKA_TOPIC_HANDLERS_MAP,
   KAFKA_VALIDATION_METADATA_KEY,
-} from "./kafka.contants";
+} from "./kafka.constants";
 
 @Injectable()
 export class KafkaTopicMetadataHandler implements OnModuleInit {

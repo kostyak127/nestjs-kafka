@@ -1,9 +1,19 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
 import { DiscoveryService, MetadataScanner, Reflector } from "@nestjs/core";
-import { KafkaHandlerType, KafkaTopic } from "./kafka.types";
 import {
+  KafkaHandlerContext,
+  KafkaHandlerParams,
+  KafkaHandlerType,
+  KafkaHandlerValidation,
+  KafkaMetadata,
+  KafkaSkipMessageOptions,
+} from "./kafka.types";
+import {
+  KAFKA_CONTEXT_METADATA_KEY,
   KAFKA_HANDLERS_METADATA,
+  KAFKA_SKIP_MESSAGE_METADATA,
   KAFKA_TOPIC_HANDLERS_MAP,
+  KAFKA_VALIDATION_METADATA_KEY,
 } from "./kafka.contants";
 
 @Injectable()
@@ -14,7 +24,6 @@ export class KafkaTopicMetadataHandler implements OnModuleInit {
     private readonly reflector: Reflector
   ) {}
   async onModuleInit(): Promise<void> {
-    console.log("start handling kafka subscribers metadata");
     this.mapHandlersToTopic();
   }
   private mapHandlersToTopic() {
@@ -37,31 +46,64 @@ export class KafkaTopicMetadataHandler implements OnModuleInit {
     key: string
   ) {
     const methodRef = instance[key];
-    const metadata = this.reflector.get<{ topic: KafkaTopic }, string>(
+    const metadata = this.reflector.get<KafkaMetadata, string>(
       KAFKA_HANDLERS_METADATA,
       methodRef
     );
     if (!metadata) return;
-    this.addTopicHandler(metadata.topic, methodRef, instance);
+    const context = this.reflector.get<KafkaHandlerContext, string>(
+      KAFKA_CONTEXT_METADATA_KEY,
+      methodRef
+    );
+    const validation = this.reflector.get<KafkaHandlerValidation, string>(
+      KAFKA_VALIDATION_METADATA_KEY,
+      methodRef
+    );
+    const skipMessageRule = this.reflector.get<KafkaSkipMessageOptions, string>(
+      KAFKA_SKIP_MESSAGE_METADATA,
+      methodRef
+    );
+    this.addTopicHandler(
+      metadata,
+      methodRef,
+      instance,
+      {
+        context: context,
+        validation: validation,
+      },
+      skipMessageRule
+    );
   }
   private addTopicHandler(
-    handlerTopic: KafkaTopic,
+    metadata: KafkaMetadata,
     methodRef: KafkaHandlerType["function"],
-    instance: Record<string, KafkaHandlerType["function"]>
+    instance: Record<string, KafkaHandlerType["function"]>,
+    params: KafkaHandlerParams,
+    skipMessageOptions: KafkaSkipMessageOptions
   ): void {
-    const toHandleTopics = Array.isArray(handlerTopic)
-      ? handlerTopic
-      : [handlerTopic];
+    const toHandleTopics = Array.isArray(metadata.topic)
+      ? metadata.topic
+      : [metadata.topic];
     for (const topic of toHandleTopics) {
       const existedTopicHandlers = KAFKA_TOPIC_HANDLERS_MAP.get(topic);
       if (existedTopicHandlers === undefined) {
         KAFKA_TOPIC_HANDLERS_MAP.set(topic, [
-          { classContext: instance, function: methodRef },
+          {
+            classContext: instance,
+            function: methodRef,
+            options: metadata.options,
+            params,
+            skipMessageOptions,
+          },
         ]);
+        console.log(KAFKA_TOPIC_HANDLERS_MAP.get(topic));
       } else {
         existedTopicHandlers.push({
           classContext: instance,
           function: methodRef,
+          options: metadata.options,
+          params,
+          skipMessageOptions,
         });
         KAFKA_TOPIC_HANDLERS_MAP.set(topic, existedTopicHandlers);
       }

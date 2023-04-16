@@ -3,7 +3,9 @@ import {
   ConsumerRunConfig,
   KafkaConfig,
   KafkaMessage,
+  Message,
   ProducerConfig,
+  ProducerRecord,
 } from "kafkajs";
 import { ZodTypeAny } from "zod/lib/types";
 import { Any } from "io-ts";
@@ -66,3 +68,13 @@ export type KafkaMessageContext = KafkaMessage & {
   partition: number;
   topic: string;
 };
+
+type KafkaMessageObject = Message & {
+  value: any | Buffer | string | null;
+  key: any;
+};
+
+export interface KafkaMessageSend extends Omit<ProducerRecord, "topic"> {
+  messages: KafkaMessageObject[];
+  topic: string;
+}

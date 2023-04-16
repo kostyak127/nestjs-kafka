@@ -1,10 +1,17 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
-import { Consumer, Kafka, KafkaMessage, Producer } from "kafkajs";
+import {
+  Consumer,
+  Kafka,
+  KafkaMessage,
+  Producer,
+  RecordMetadata,
+} from "kafkajs";
 import { KAFKA_TOPIC_HANDLERS_MAP } from "./kafka.constants";
 import {
   KafkaHandlerType,
   KafkaHandlerValidation,
   KafkaMessageContext,
+  KafkaMessageSend,
   KafkaModuleOption,
   KafkaSkipMessageOptions,
   KafkaTopic,
@@ -45,6 +52,16 @@ export class KafkaClient implements OnModuleInit {
     this.consumer = this.kafka.consumer(consumerOptions);
     this.producer = this.kafka.producer(producerConfig);
     this.options = options;
+  }
+
+  public async send(
+    message: KafkaMessageSend
+  ): Promise<RecordMetadata[] | void> {
+    if (!this.producer) {
+      console.error("There is no producer, unable to send message.");
+      return;
+    }
+    return this.producer.send(message);
   }
 
   public async onModuleInit() {

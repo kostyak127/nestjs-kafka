@@ -32,8 +32,10 @@ export class TestKafkaSubscriber {
   async onAsdTopicSecond() {}
   @SubscribeToTopic("message_pattern", { messagePattern: "message.a" })
   async onMessagePattern() {}
+
   @SubscribeToTopic("context", {})
   async contextHandler(@KafkaContext() context: any) {}
+
   @SubscribeToTopic("context_with_second_arg_context")
   async contextSecondArg(firstArg: any, @KafkaContext() context: any) {}
   @SubscribeToTopic("zod_validation")
@@ -42,6 +44,7 @@ export class TestKafkaSubscriber {
   async validateJoi(
     @JoiValidator(JoiUser) user: joi.extractType<typeof JoiUser>
   ) {}
+
   @SubscribeToTopic("io-ts_validation")
   async validateIoTs(
     @IoTsValidator(IoTsUser) user: IoTsTypeOf<typeof IoTsUser>

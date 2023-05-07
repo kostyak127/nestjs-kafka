@@ -8,7 +8,8 @@
   "private": false,
   "scripts": {
     "test": "jest",
-    "start:dev": "nodemon src/main.ts"
+    "start:dev": "nodemon src/main.ts",
+    "types": "tsc --noEmit"
   },
   "jest": {
     "preset": "ts-jest",

@@ -1,15 +1,17 @@
-import { SubscribeToTopic } from "../src/kafka/decorator/kafka.subscribe-to-topic.decorator";
 import * as t from "io-ts";
 import { TypeOf as IoTsTypeOf } from "io-ts";
 import * as joi from "@hapi/joi";
 import { z } from "zod";
 import { Injectable } from "@nestjs/common";
-import { KafkaContext } from "../src/kafka/decorator/kafka.context.decorator";
-import { ZodValidator } from "../src/kafka/decorator/kafka.zod-validator.decorator";
 import { TypeOf as ZodTypeOf } from "zod/lib/types";
-import { JoiValidator } from "../src/kafka/decorator/kafka.joi-validator";
-import { IoTsValidator } from "../src/kafka/decorator/kafka.io-ts-validator.decorator";
 import "joi-extract-type";
+import {
+  IoTsValidator,
+  JoiValidator,
+  KafkaContext,
+  SubscribeToTopic,
+  ZodValidator,
+} from "../src/kafka/kafka.decorators";
 
 export const IoTsUser = t.type({
   userId: t.number,

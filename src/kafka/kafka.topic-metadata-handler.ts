@@ -96,7 +96,6 @@ export class KafkaTopicMetadataHandler implements OnModuleInit {
             skipMessageOptions,
           },
         ]);
-        console.log(KAFKA_TOPIC_HANDLERS_MAP.get(topic));
       } else {
         existedTopicHandlers.push({
           classContext: instance,

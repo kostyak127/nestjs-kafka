@@ -9,6 +9,7 @@
   "scripts": {
     "test": "jest",
     "start:dev": "nodemon src/main.ts",
+    "build": "nest build",
     "types": "tsc --noEmit"
   },
   "jest": {

@@ -43,7 +43,8 @@ export class SendMessageService {
       topic: '',
     });
   }
-}```
+}
+```
 
 #### Subscripe to topic handler
 ```javascript

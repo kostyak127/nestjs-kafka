@@ -54,6 +54,10 @@ export class MessageHandlerService {
   async onMessage() {
     console.log('message handled');
   }
+  @SubscribeToTopic(/.*_customers/)
+  async onMessage() {
+    console.log('regexp message handled');
+  }
 }
 ```
 #### Message pattern and payload

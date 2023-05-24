@@ -7,7 +7,7 @@ import { DiscoveryService, MetadataScanner, Reflector } from "@nestjs/core";
 @Module({})
 export class KafkaModule {
   static register(options: KafkaModuleOption): DynamicModule {
-    const kafkaClient = new KafkaClient(options.options);
+    const kafkaClient = new KafkaClient(options);
     return {
       module: KafkaModule,
       imports: [],

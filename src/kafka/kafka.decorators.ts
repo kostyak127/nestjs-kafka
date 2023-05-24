@@ -1,13 +1,18 @@
 import {
-  KAFKA_CONTEXT_METADATA_KEY, KAFKA_HANDLERS_METADATA,
+  KAFKA_CONTEXT_METADATA_KEY,
+  KAFKA_HANDLERS_METADATA,
+  KAFKA_PAYLOAD_METADATA_KEY,
   KAFKA_SKIP_MESSAGE_METADATA,
-  KAFKA_VALIDATION_METADATA_KEY
+  KAFKA_VALIDATION_METADATA_KEY,
 } from "./kafka.constants";
-import {Any} from "io-ts";
-import {AnySchema} from "@hapi/joi";
-import {ZodTypeAny} from "zod/lib/types";
-import {applyDecorators, SetMetadata} from "@nestjs/common";
-import {KafkaSubscribeToTopicOptions, SubscribableKafkaTopic} from "./kafka.types";
+import { Any } from "io-ts";
+import { AnySchema } from "@hapi/joi";
+import { ZodTypeAny } from "zod/lib/types";
+import { applyDecorators, SetMetadata } from "@nestjs/common";
+import {
+  KafkaSubscribeToTopicOptions,
+  SubscribableKafkaTopic,
+} from "./kafka.types";
 
 export function KafkaContext() {
   return (target: any, propertyKey: string, parameterIndex: number) => {
@@ -20,7 +25,6 @@ export function KafkaContext() {
     );
   };
 }
-
 
 export function IoTsValidator(schema: Any) {
   return (target: any, propertyKey: string, parameterIndex: number) => {
@@ -67,7 +71,7 @@ export function ZodValidator(schema: ZodTypeAny) {
 export function KafkaPayload() {
   return (target: any, propertyKey: string, parameterIndex: number) => {
     Reflect.defineMetadata(
-      KAFKA_VALIDATION_METADATA_KEY,
+      KAFKA_PAYLOAD_METADATA_KEY,
       {
         type: undefined,
         schema: undefined,
@@ -86,7 +90,6 @@ export function SkipMessage(
 ): MethodDecorator {
   return applyDecorators(SetMetadata(KAFKA_SKIP_MESSAGE_METADATA, options));
 }
-
 
 export function SubscribeToTopic(
   topic: SubscribableKafkaTopic,

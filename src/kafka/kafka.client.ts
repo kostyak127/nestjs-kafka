@@ -199,7 +199,7 @@ export class KafkaClient implements OnModuleInit {
       ...message,
       topic,
       partition,
-    };
+    } as KafkaMessageContext;
   }
   private compileFunctionArgs(
     handler: KafkaHandlerType,

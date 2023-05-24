@@ -54,14 +54,12 @@ export type KafkaHandlerType = {
 };
 
 export type KafkaModuleOption = {
-  options: {
-    client: KafkaConfig;
-    consumer: ConsumerConfig;
-    consumerRunConfig?: ConsumerRunConfig;
-    producer?: ProducerConfig;
-    consumeFromBeginning?: boolean;
-    seek?: Record<string, number | "earliest" | Date>;
-  };
+  client: KafkaConfig;
+  consumer: ConsumerConfig;
+  consumerRunConfig?: ConsumerRunConfig;
+  producer?: ProducerConfig;
+  consumeFromBeginning?: boolean;
+  seek?: Record<string, number | "earliest" | Date>;
 };
 
 export type KafkaMessageContext = KafkaMessage & {

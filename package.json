@@ -1,6 +1,6 @@
 {
   "name": "kostyak127-nestjs-kafka",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "index.ts",
   "repository": "https://github.com/kostyak127/nestjs-kafka.git",
   "author": "Korotchenkov Konstantin <kostyak127@gmail.com>",

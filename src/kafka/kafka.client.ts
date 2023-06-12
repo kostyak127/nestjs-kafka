@@ -27,9 +27,9 @@ export class KafkaClient implements OnModuleInit {
   private readonly kafka: Kafka;
   private readonly producer: Producer;
   private readonly consumer: Consumer;
-  private readonly options: KafkaModuleOption["options"];
+  private readonly options: KafkaModuleOption;
 
-  constructor(options: KafkaModuleOption["options"]) {
+  constructor(options: KafkaModuleOption) {
     const {
       client,
       consumer: consumerConfig,

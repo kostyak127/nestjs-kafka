@@ -2,7 +2,12 @@ import { DynamicModule, Module } from "@nestjs/common";
 import { KafkaModuleOption } from "./kafka.types";
 import { KafkaClient } from "./kafka.client";
 import { KafkaTopicMetadataHandler } from "./kafka.topic-metadata-handler";
-import { DiscoveryService, MetadataScanner, Reflector } from "@nestjs/core";
+import {
+  DiscoveryService,
+  MetadataScanner,
+  ModulesContainer,
+  Reflector,
+} from "@nestjs/core";
 
 @Module({})
 export class KafkaModule {
@@ -17,6 +22,7 @@ export class KafkaModule {
         DiscoveryService,
         MetadataScanner,
         Reflector,
+        ModulesContainer,
       ],
       exports: [{ provide: KafkaClient, useValue: kafkaClient }],
     };
